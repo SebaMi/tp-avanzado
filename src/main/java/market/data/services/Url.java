@@ -1,4 +1,4 @@
-package services;
+package market.data.services;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,10 +30,10 @@ import market.data.model.*;
 public class Url {
 	
 	
-	public void traerJson() throws IOException {
+	public ArrayList<Valores> traerJson() throws IOException {
 
 
-		URL url = new URL("https://github.com/mlennard-utn/tp_avanzado/blob/master/mercado.json");
+		URL url = new URL("https://raw.githubusercontent.com/mlennard-utn/tp_avanzado/master/mercado.json");
 		File file = new File("D:\\Sebas\\Mercado.json");
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -41,7 +41,7 @@ public class Url {
 		ArrayList<Valores> valores = mapper.readValue(file,
 				mapper.getTypeFactory().constructCollectionType(ArrayList.class, Valores.class));
 
-
+		return valores;
 	}   
 	
 }

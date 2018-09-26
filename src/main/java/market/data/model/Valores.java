@@ -1,12 +1,13 @@
 package market.data.model;
 
 public class Valores {
-	public String currency;
-	public String ticker;
-	public String exchange;
-	public String id;
-	public String price;
-	public String name;
+	private String currency;
+	private String ticker;
+	private String exchange;
+	private String id;
+	private String price;
+	private String name;
+	
 	public String getCurrency() {
 		return currency;
 	}
