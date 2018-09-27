@@ -1,7 +1,9 @@
 package market.data;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import market.data.model.Prestamo;
 import market.data.services.JsonConverter;
 import market.data.services.Url;
 
@@ -17,6 +19,13 @@ public class MarketData {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		converter.traerSalida();
+		ArrayList<Prestamo> lista = converter.traerPrestamos();
+		
+		for (Prestamo prestamo : lista) {
+			converter.verificarPrestamo(prestamo);
 		}
 		
 	}

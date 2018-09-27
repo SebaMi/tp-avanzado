@@ -38,7 +38,7 @@ public class Url {
 
 		ObjectMapper mapper = new ObjectMapper();
 
-		ArrayList<Valores> valores = mapper.readValue(file,
+		ArrayList<Valores> valores = mapper.readValue(url,
 				mapper.getTypeFactory().constructCollectionType(ArrayList.class, Valores.class));
 
 		return valores;
