@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import market.data.model.Prestamo;
+import market.data.model.PrestamoPeligroso;
 import market.data.services.JsonConverter;
 import market.data.services.Url;
 
@@ -22,12 +23,10 @@ public class MarketData {
 		}
 		
 		converter.traerSalida();
-		ArrayList<Prestamo> lista = converter.traerPrestamos();
 		
-		for (Prestamo prestamo : lista) {
-			converter.verificarPrestamo(prestamo);
-		}
-		
+		converter.verificarPrestamosEnPeligro();
 	}
+		
+	
 
 }

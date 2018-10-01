@@ -16,6 +16,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import market.data.model.Valores;
 import market.data.model.Prestamo;
+import market.data.model.PrestamoPeligroso;
 import market.data.model.Salida;
 
 public class JsonConverter {
@@ -38,7 +39,7 @@ public class JsonConverter {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		try {
-			mapper.writeValue(new File("C:\\Prueba\\salida.json"), salida);
+			mapper.writeValue(new File("d:\\Sebas\\salida.json"), salida);
 		} catch (JsonGenerationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,9 +64,9 @@ public class JsonConverter {
 			listaPrestamos = mapper.readValue(url,
 					mapper.getTypeFactory().constructCollectionType(ArrayList.class, Prestamo.class));
 			
-			for (Prestamo prestamos : listaPrestamos) {
-				System.out.println(prestamos.getId());
-			}
+//			for (Prestamo prestamos : listaPrestamos) {
+//				System.out.println(prestamos.getId());
+//			}
 		
 		} catch (MalformedURLException e1) {
 			// TODO Auto-generated catch block
@@ -88,26 +89,31 @@ public class JsonConverter {
 	
 	/*  */
 	
-	public void verificarPrestamo(Prestamo prestamo) {
+	public ArrayList<PrestamoPeligroso> verificarPrestamo(Prestamo prestamo, ArrayList<PrestamoPeligroso> enPeligro) {
+		
+		
 		
 		Double monto = prestamo.getAmount();
 		Double tenencia = (double) 0;
 		for(int i=0; i<prestamo.getPositions().length; i++) {
 			tenencia += calcular(prestamo.getPositions()[i].getId(), prestamo.getPositions()[i].getQuantity());
 		}
+		if(tenencia<prestamo.getAmount())
+			//System.out.println("Tenencia: "+tenencia +"vs "+ "Monto: " + prestamo.getAmount() );
+			enPeligro.add(new PrestamoPeligroso(prestamo.getId(), prestamo.getCreditpolicy(), prestamo.getAmount(), tenencia));
 		
-		System.out.println("Tenencia: "+tenencia +"vs "+ "Monto: " + prestamo.getAmount() );
+		return enPeligro;
 		
 	}
 
 	private Double calcular(String id, Long quantity) {
-		System.out.println("valor individual: "+mapAcciones.get(id) + " Cantidad: "+quantity);
+		//System.out.println("valor individual: "+mapAcciones.get(id) + " Cantidad: "+quantity);
 		Double tenencia = Double.parseDouble(mapAcciones.get(id))* quantity.doubleValue();
 		return tenencia;
 	}
 	
 	public Map<String,String> traerSalida() {
-		File file = new File("c:\\prueba\\salida.json");
+		File file = new File("D:\\Sebas\\salida.json");
 		
 		mapAcciones = new HashMap<String, String>();
 		
@@ -134,6 +140,40 @@ public class JsonConverter {
 		}
 		
 		return mapAcciones;
+	}
+	
+	public void verificarPrestamosEnPeligro() {
+		ArrayList<Prestamo> lista = this.traerPrestamos();
+		ArrayList<PrestamoPeligroso> enPeligro = new ArrayList();
+		
+		for (Prestamo prestamo : lista) {
+			enPeligro = this.verificarPrestamo(prestamo, enPeligro);
+		}
+		
+		for (PrestamoPeligroso prestamoPeligroso : enPeligro) {
+			System.out.println(prestamoPeligroso.getId() +"  " + prestamoPeligroso.getAmount() + "  " +prestamoPeligroso.getEligible_colateral());
+			
+		}
+		generarPeligrosos(enPeligro);
+	}
+	
+	private void generarPeligrosos (ArrayList<PrestamoPeligroso> pp) {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			mapper.writeValue(new File("d:\\Sebas\\Prestamos_con_riesgo.json"), pp);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }
