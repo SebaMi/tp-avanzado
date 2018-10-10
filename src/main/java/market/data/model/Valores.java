@@ -5,7 +5,7 @@ public class Valores {
 	private String ticker;
 	private String exchange;
 	private String id;
-	private String price;
+	private Double price;
 	private String name;
 	
 	public String getCurrency() {
@@ -32,10 +32,10 @@ public class Valores {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	public String getName() {

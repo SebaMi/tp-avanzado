@@ -9,14 +9,14 @@ import java.util.Locale;
 public class Salida {
 
 	private String isin;
-	private String price;
+	private Double price;
 	private String ticker;
 	
 	public Salida() {
 		
 	}
 	
-	public Salida(String isin, String price, String ticker) {
+	public Salida(String isin, Double price, String ticker) {
 		this.isin = isin;
 		this.setPrice(price);//this.price = price;//
 		this.ticker = ticker;
@@ -27,19 +27,19 @@ public class Salida {
 	public void setIsin(String isin) {
 		this.isin = isin;
 	}
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
-		//DecimalFormat df = new DecimalFormat("0.00##");
-		//this.price = df.format(Double.parseDouble(price));
-		Locale currentLocale = Locale.getDefault();
-		
-		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(currentLocale);
-		otherSymbols.setDecimalSeparator('.');
-		otherSymbols.setGroupingSeparator(','); 
-		DecimalFormat df = new DecimalFormat("0.00##", otherSymbols);
-		this.price = df.format(Double.parseDouble(price));
+	public void setPrice(Double price) {
+//		//DecimalFormat df = new DecimalFormat("0.00##");
+//		//this.price = df.format(Double.parseDouble(price));
+//		Locale currentLocale = Locale.getDefault();
+//		
+//		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(currentLocale);
+//		otherSymbols.setDecimalSeparator('.');
+//		otherSymbols.setGroupingSeparator(','); 
+//		DecimalFormat df = new DecimalFormat("0.00##", otherSymbols);
+		this.price = price; //df.format(Double.parseDouble(price));
 	}	
 	
 	public String getTicker() {

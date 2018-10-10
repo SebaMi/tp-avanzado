@@ -2,7 +2,8 @@ package market.data.exceptions;
 
 import java.io.IOException;
 
-public class InputException extends IOException {
+@SuppressWarnings("serial")
+public class InputException extends Exception {
 
 	public InputException(String message) {
 		super(message);

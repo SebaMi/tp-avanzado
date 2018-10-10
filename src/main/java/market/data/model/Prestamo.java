@@ -1,7 +1,5 @@
 package market.data.model;
 
-import java.util.ArrayList;
-
 public class Prestamo {
 	
 	private Double amount;
@@ -34,17 +32,5 @@ public class Prestamo {
 		this.positions = positions;
 	}
 	
-//	public Prestamos() {
-//		
-//	}
-//	
-//	public Prestamos(Double amount, String creditpolicy, String id, String[] positions) {
-//		this.amount = amount;
-//		this.creditpolicy = creditpolicy;
-//		this.id = id;
-//		this.positions = positions;
-//	}
-	
 
-	
 }
