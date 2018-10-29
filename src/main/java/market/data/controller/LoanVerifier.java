@@ -13,11 +13,13 @@ import market.data.exceptions.OutputException;
 import market.data.model.Prestamo;
 import market.data.model.PrestamoPeligroso;
 import market.data.model.Salida;
-import market.data.utilidades.Utiles;
+import market.data.utilidades.IO;
 
 public class LoanVerifier {
 	
-	Utiles utils = new Utiles();
+	Negocio utils = new Negocio();
+	
+	IO io = new IO();
 	
 	Map<String, Object> mapAcciones = new HashMap<String, Object>();
 	
@@ -30,17 +32,17 @@ public class LoanVerifier {
 		
 		FileSystem fs = FileSystems.getDefault();
 
-		Path output = fs.getPath("C:/Temp/prestamos_riesgosos.json");
+		Path output = fs.getPath("prestamos_riesgosos.json");
 		
-		generado = utils.traerJson(Salida.class, generado, entrada);
+		generado = io.traerJson(Salida.class, generado, entrada);
 		
-		prestamos = utils.traerJson(Prestamo.class, new  ArrayList<Prestamo>(), prestamo);
+		prestamos = io.traerJson(Prestamo.class, new  ArrayList<Prestamo>(), prestamo);
 		
 		mapAcciones = utils.convertir(generado);
 		
 		pp = utils.verificarPrestamosEnPeligro(prestamos);
 		
-		utils.generarArchivoJson(pp, output);
+		io.generarArchivoJson(pp, output);
 		
 		System.out.println(String.format("Se ha generado el archivo %s", output));
 	}

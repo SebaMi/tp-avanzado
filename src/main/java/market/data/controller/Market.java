@@ -10,11 +10,12 @@ import market.data.exceptions.MappingException;
 import market.data.exceptions.OutputException;
 import market.data.model.Salida;
 import market.data.model.Valores;
-import market.data.utilidades.Utiles;
+import market.data.utilidades.IO;
 
 public class Market {
 	
-	Utiles utils = new Utiles();
+	Negocio utils = new Negocio();
+	IO io = new IO();
 	
 
 	public void extraerValoresSimplificado(String entrada) throws  InputException, MappingException, OutputException{
@@ -25,13 +26,13 @@ public class Market {
 		
 		FileSystem fs = FileSystems.getDefault();
 		
-		Path output = fs.getPath("C:/Temp/simplificado.json");
+		Path output = fs.getPath("marketdata.json");
 		
-		valores = utils.traerJson(Valores.class ,new ArrayList<Valores>(), entrada);
+		valores = io.traerJson(Valores.class ,new ArrayList<Valores>(), entrada);
 
 		simplificados = utils.convertirJson(valores);
 
-		utils.generarArchivoJson(simplificados, output);
+		io.generarArchivoJson(simplificados, output);
 		
 		System.out.println(String.format("Se ha generado el archivo %s", output));
 		

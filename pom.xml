@@ -24,11 +24,11 @@
                         <version>3.8.1</version>
                         <scope>test</scope>
                 </dependency>
-                <dependency>
-                        <groupId>org.codehaus.jackson</groupId>
-                        <artifactId>jackson-mapper-asl</artifactId>
-                        <version>1.9.13</version>
-                </dependency>
+<!--          !-       <dependency> -->
+<!--                         <groupId>org.codehaus.jackson</groupId> -->
+<!--                         <artifactId>jackson-mapper-asl</artifactId> -->
+<!--                         <version>1.9.13</version> -->
+<!--                 </dependency> -->
                 <dependency>
 					<groupId>com.fasterxml.jackson.core</groupId>
 					<artifactId>jackson-core</artifactId>
@@ -55,7 +55,7 @@
                                 <configuration>
                                         <archive>
                                                 <manifest>
-                                                        <mainClass>ar.edu.utn.avanzado.java.apellido.App</mainClass>
+                                                        <mainClass>market.data.MarketData</mainClass>
                                                 </manifest>
                                         </archive>
                                         <descriptorRefs>
